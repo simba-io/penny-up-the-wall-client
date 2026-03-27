@@ -1,40 +1,52 @@
-import { createSplashView, SPLASH_VIEW_ID } from "./SplashView";
-import { createBioView, BIO_VIEW_ID } from "./BioView";
-import { createMenuCanvas, MENU_CANVAS_ID } from "./MenuCanvas";
-import { createContactView, CONTACT_VIEW_ID } from "./ContactView";
-import { createCanvasContainer } from "./CanvasUtils";
-import { SoundManager, SoundManagerMode, UserPanelAnchor } from "simple-sound-editor";
+import * as PIXI from 'pixi.js';
 
-const components = [
-  { label: "Splash", id: SPLASH_VIEW_ID },
-  { label: "Bio", id: BIO_VIEW_ID },
-  { label: "Contact", id: CONTACT_VIEW_ID }
-];
+// Configuration for your "Safe Zone" / Design resolution
+const DESIGN_WIDTH = 1920;
+const DESIGN_HEIGHT = 1080;
 
-(async () => {
-  const soundManager = new SoundManager(SoundManagerMode.DEV, UserPanelAnchor.RIGHT);
+const app = new PIXI.Application();
 
-  // Create and mount the menu canvas (left side)
-  const menuContainer = document.createElement("div");
-  menuContainer.id = MENU_CANVAS_ID;
-  document.body.appendChild(menuContainer);
-  await createMenuCanvas(menuContainer, components);
+async function init()
+{
+    await app.init({
+        background: '#1099bb',
+        resizeTo: window, // Automatically matches the browser window size
+        antialias: true,
+        resolution: window.devicePixelRatio || 1,
+    });
 
-  // Create all canvases using standardized container creation
-  const mainContainer = document.body;
+    document.getElementById('game-container')!.appendChild(app.canvas);
 
-  // Create splash view with standardized styling
-  const splashContainer = createCanvasContainer(mainContainer, SPLASH_VIEW_ID);
-  await createSplashView(splashContainer);
+    // Create a main container to hold all game objects
+    const scene = new PIXI.Container();
+    app.stage.addChild(scene);
 
-  // Create bio view with standardized styling
-  const bioContainer = createCanvasContainer(mainContainer, BIO_VIEW_ID);
-  await createBioView(bioContainer);
+    // Placeholder: A centered sprite or graphic to test scaling
+    const graphics = new PIXI.Graphics()
+        .rect(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT)
+        .fill({ color: 0xffffff, alpha: 0.1 })
+        .stroke({ width: 10, color: 0xff0000 });
+    
+    scene.addChild(graphics);
 
-  // Create contact view with standardized styling
-  const contactContainer = createCanvasContainer(
-    mainContainer,
-    CONTACT_VIEW_ID,
-  );
-  await createContactView(contactContainer);
-})();
+    // Resize function to maintain aspect ratio (Letterboxing)
+    const resize = () => 
+    {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
+        // Calculate scale to fit the screen
+        const scale = Math.min(screenWidth / DESIGN_WIDTH, screenHeight / DESIGN_HEIGHT);
+
+        scene.scale.set(scale);
+
+        // Center the scene
+        scene.x = (screenWidth - DESIGN_WIDTH * scale) / 2;
+        scene.y = (screenHeight - DESIGN_HEIGHT * scale) / 2;
+    };
+
+    window.addEventListener('resize', resize);
+    resize(); // Initial call
+}
+
+init();
