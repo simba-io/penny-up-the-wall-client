@@ -1,8 +1,9 @@
 import * as PIXI from 'pixi.js';
+import { Scene } from './Scene';
 
 // Configuration for your "Safe Zone" / Design resolution
-const DESIGN_WIDTH = 1920;
-const DESIGN_HEIGHT = 1080;
+export const DESIGN_WIDTH = 1920;
+export const DESIGN_HEIGHT = 1080;
 
 const app = new PIXI.Application();
 
@@ -18,16 +19,10 @@ async function init()
     document.getElementById('game-container')!.appendChild(app.canvas);
 
     // Create a main container to hold all game objects
-    const scene = new PIXI.Container();
+    const scene = new Scene();
     app.stage.addChild(scene);
 
-    // Placeholder: A centered sprite or graphic to test scaling
-    const graphics = new PIXI.Graphics()
-        .rect(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT)
-        .fill({ color: 0xffffff, alpha: 0.1 })
-        .stroke({ width: 10, color: 0xff0000 });
-    
-    scene.addChild(graphics);
+    scene.bootstrap();
 
     // Resize function to maintain aspect ratio (Letterboxing)
     const resize = () => 
