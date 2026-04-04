@@ -55,10 +55,6 @@ export class Scene extends PIXI.Container
 
         if (gameObject)
         {
-            // this code will center the object
-            gameObject.x = DESIGN_WIDTH / 2;
-            gameObject.y = DESIGN_HEIGHT / 2;
-
             // this code will position the object based on the normalized coordinates
             gameObject.x = this.denormalise(normalisedX, 0, DESIGN_WIDTH);
             gameObject.y = this.denormalise(normalisedY, 0, DESIGN_HEIGHT);
