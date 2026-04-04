@@ -10,6 +10,14 @@ export class GameObject extends PIXI.Graphics
         super();
         
         this.name = name;
+
+        this.interactive = true;
+        this.eventMode = 'static';
+
+        this.ontouchstart = this.onTouchDown;
+        this.ontouchend = this.onTouchUp;
+        this.onmousedown = this.onTouchDown;
+        this.onmouseup = this.onTouchUp;
     }
 
     public setPosition(x: number, y: number): void
@@ -22,5 +30,14 @@ export class GameObject extends PIXI.Graphics
         
     }
 
+    onTouchDown = () =>
+    {
+        console.log('touch down!');
+    }
+
+    onTouchUp = () =>
+    {
+        console.log('touch up!');
+    }
  
 }

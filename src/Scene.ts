@@ -14,12 +14,12 @@ export class Scene extends PIXI.Container
     async bootstrap(): Promise<void>
     {
         // Placeholder: A centered sprite or graphic to test scaling
-        /* const viewport = new PIXI.Graphics()
+        const viewport = new PIXI.Graphics()
             .rect(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT)
             .fill({ color: 0xffffff, alpha: 0.1 })
             .stroke({ width: 10, color: 0xff0000 });
         
-        this.addChild(viewport); */
+        this.addChild(viewport);
 
         const graphics = new GameObject('circle');
 
@@ -27,26 +27,9 @@ export class Scene extends PIXI.Container
 
         this.addChild(circle);
 
-
         this.gameObjects['circle'] = graphics;
-
-        circle.ontouchstart = this.ontouchstart;
-        circle.ontouchend = this.ontouchend;
-        circle.onmousedown = this.ontouchstart;
-        circle.onmouseup = this.ontouchend;
-
         
         this.setGameObjectPosition('circle', 0.5, 0.5);
-    }
-
-    ontouchstart = () =>
-    {
-        console.log('touch start!');
-    }
-
-    ontouchend = () =>
-    {
-        console.log('touch end!');
     }
 
     public setGameObjectPosition(id: string, normalisedX: number, normalisedY: number): void
