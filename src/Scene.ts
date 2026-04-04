@@ -14,12 +14,12 @@ export class Scene extends PIXI.Container
     async bootstrap(): Promise<void>
     {
         // Placeholder: A centered sprite or graphic to test scaling
-        const viewport = new PIXI.Graphics()
+        /* const viewport = new PIXI.Graphics()
             .rect(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT)
             .fill({ color: 0xffffff, alpha: 0.1 })
             .stroke({ width: 10, color: 0xff0000 });
         
-        this.addChild(viewport);
+        this.addChild(viewport); */
 
         const graphics = new GameObject('circle');
 
