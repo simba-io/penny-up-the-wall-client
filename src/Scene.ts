@@ -1,6 +1,26 @@
 import * as PIXI from 'pixi.js';
 import { GameObject } from './GameObject';
 import { DESIGN_WIDTH, DESIGN_HEIGHT } from './main';
+import { ActionButton } from './ActionButton';
+import { PowerBar } from './PowerBar';
+
+export enum Color
+{
+    GREEN = 0x00ff00,
+    RED = 0xff0000,
+    BLUE = 0x0000ff,
+    YELLOW = 0xffff00,
+    PURPLE = 0xff00ff,
+    ORANGE = 0xffa500,
+    PINK = 0xffc0cb,
+    BROWN = 0xa52a2a,
+    GREY = 0x808080,
+    WHITE = 0xffffff,
+    BLACK = 0x000000,
+    TRANSPARENT = 0x00000000,
+    GOLD = 0xffd700,
+    SILVER = 0xc0c0c0
+}
 
 export class Scene extends PIXI.Container
 {
@@ -14,22 +34,32 @@ export class Scene extends PIXI.Container
     async bootstrap(): Promise<void>
     {
         // Placeholder: A centered sprite or graphic to test scaling
-        const viewport = new PIXI.Graphics()
+        const viewportBorder = new PIXI.Graphics()
             .rect(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT)
             .fill({ color: 0xffffff, alpha: 0.1 })
             .stroke({ width: 10, color: 0xff0000 });
         
-        this.addChild(viewport);
+        this.addChild(viewportBorder);
 
-        const graphics = new GameObject('circle');
+        // -----------------------------------------------------------------
+        // POWER BAR
 
-        const circle = graphics.circle(0, 0, 100).fill({ color: 0xff0000 }).stroke({ width: 5, color: 0x000000 });
+        const powerBar = new PowerBar(this, 'power-bar');
 
-        this.addChild(circle);
+        this.gameObjects['power-bar'] = powerBar;
 
-        this.gameObjects['circle'] = graphics;
+        this.setGameObjectPosition('power-bar', 0.07, 0.15);
+        // -----------------------------------------------------------------
+
+        // ACTION BUTTON
+
+        const button = new ActionButton(this, powerBar, 'action-button');
+
+        this.gameObjects['action-button'] = button;
         
-        this.setGameObjectPosition('circle', 0.5, 0.5);
+        this.setGameObjectPosition('action-button', 0.1, 0.85);
+
+        // -----------------------------------------------------------------
     }
 
     public setGameObjectPosition(id: string, normalisedX: number, normalisedY: number): void
