@@ -3,6 +3,7 @@ import { GameObject } from './GameObject';
 import { DESIGN_WIDTH, DESIGN_HEIGHT } from './main';
 import { ActionButton } from './ActionButton';
 import { PowerBar } from './PowerBar';
+import { Coin } from './Coin';
 
 export enum Color
 {
@@ -24,7 +25,7 @@ export enum Color
 
 export class Scene extends PIXI.Container
 {
-    private gameObjects: Record<string, GameObject> = {};
+    private gameObjects: Record<string, any> = {};
 
     constructor()
     {
@@ -42,22 +43,33 @@ export class Scene extends PIXI.Container
         this.addChild(viewportBorder);
 
         // -----------------------------------------------------------------
+
         // POWER BAR
 
         const powerBar = new PowerBar(this, 'power-bar');
 
-        this.gameObjects['power-bar'] = powerBar;
+        this.gameObjects[powerBar.name] = powerBar;
 
-        this.setGameObjectPosition('power-bar', 0.07, 0.15);
+        this.setGameObjectPosition(powerBar.name, 0.07, 0.15);
         // -----------------------------------------------------------------
 
         // ACTION BUTTON
 
         const button = new ActionButton(this, powerBar, 'action-button');
 
-        this.gameObjects['action-button'] = button;
+        this.gameObjects[button.name] = button;
         
-        this.setGameObjectPosition('action-button', 0.1, 0.85);
+        this.setGameObjectPosition(button.name, 0.1, 0.85);
+
+        // -----------------------------------------------------------------
+
+        // COIN GAME OBJECT
+
+        const coin = new Coin(this, 'coin');
+
+        this.gameObjects[coin.name] = coin;
+        
+        this.setGameObjectPosition(coin.name, 0.5, 0.9);
 
         // -----------------------------------------------------------------
     }
