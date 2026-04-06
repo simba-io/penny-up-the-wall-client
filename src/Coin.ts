@@ -37,7 +37,7 @@ export class Coin extends PIXI.Sprite {
 
     this.scale.set(0.5, 0.5);
 
-    Assets.load("assets/pngegg.png").then((texture) => {
+    Assets.load("assets/coin.png").then((texture) => {
       this.texture = texture as PIXI.Texture;
     });
 
