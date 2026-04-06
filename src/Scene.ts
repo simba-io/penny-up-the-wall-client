@@ -4,6 +4,7 @@ import { ActionButton } from './ActionButton';
 import { PowerBar } from './PowerBar';
 import { Coin } from './Coin';
 import { Wall } from './Wall';
+import { DistanceFromWall } from './DistanceUI';
 
 export enum Color
 {
@@ -60,12 +61,21 @@ export class Scene extends PIXI.Container
         this.gameObjects[wall.name] = wall;
         
         this.setGameObjectPosition(wall.name, 0, 0);
+        // -----------------------------------------------------------------
+
+        // DISTANCE UI
+
+        const distanceUI = new DistanceFromWall(this, 'distance-ui');
+
+        this.gameObjects[distanceUI.name] = distanceUI;
+        
+        this.setGameObjectPosition(distanceUI.name, 0.9, 0.85);
 
         // -----------------------------------------------------------------
 
         // COIN GAME OBJECT
 
-        const coin = new Coin(this, wall, 'coin');
+        const coin = new Coin(this, distanceUI, wall, 'coin');
 
         this.gameObjects[coin.name] = coin;
         
@@ -84,7 +94,7 @@ export class Scene extends PIXI.Container
         // -----------------------------------------------------------------
     }
 
-    public setGameObjectPosition(id: string, normalisedX: number, normalisedY: number): void
+    private setGameObjectPosition(id: string, normalisedX: number, normalisedY: number): void
     {
         const gameObject = this.gameObjects[id];
 
@@ -94,6 +104,14 @@ export class Scene extends PIXI.Container
             gameObject.x = this.denormalise(normalisedX, 0, DESIGN_WIDTH);
             gameObject.y = this.denormalise(normalisedY, 0, DESIGN_HEIGHT);
         }
+    }
+
+    public distancefromWall(coin: Coin, wall: Wall): number
+    {
+        const coinY = this.normalise(coin.y, 0, DESIGN_HEIGHT);
+        const wallY = this.normalise(wall.y, 0, DESIGN_HEIGHT);
+
+        return Math.abs(coinY - wallY);
     }
 
        /**
@@ -108,4 +126,9 @@ export class Scene extends PIXI.Container
     {
         return min + (max - min) * normalisedValue;
     };
+
+    normalise(value: number, min: number, max: number): number
+    {
+        return (value - min) / (max - min);
+    }
 }

@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import { Assets } from 'pixi.js';
 import type { Scene } from './Scene';
 import type { Wall } from './Wall';
+import { DistanceFromWall } from './DistanceUI';
 
 export class Coin extends PIXI.Sprite
 {
@@ -10,16 +11,24 @@ export class Coin extends PIXI.Sprite
     public wall!: Wall;
 
     private velocityY: number = 0;
-    
+
     private isLaunched: boolean = false;
 
-    constructor(parent: Scene, wall: Wall, name: string = "")
+    private scene!: Scene;
+
+    private distanceUI!: DistanceFromWall;
+
+    constructor(parent: Scene, distanceUI: DistanceFromWall, wall: Wall, name: string = "")
     {
         super(PIXI.Texture.EMPTY);
         
         this.name = name;
 
         this.wall = wall;
+
+        this.scene = parent;
+
+        this.distanceUI = distanceUI;
 
         this.anchor.set(0.5, 0.5);
 
@@ -46,7 +55,7 @@ export class Coin extends PIXI.Sprite
 
         const ticker = PIXI.Ticker.shared;
 
-        const deceleration = 1.75;
+        const deceleration = 0.5;
 
         const restitution = 0.35;
 
@@ -100,6 +109,10 @@ export class Coin extends PIXI.Sprite
             {
                 this.velocityY -= deceleration;
             }
+
+            const distance = this.scene.distancefromWall(this, this.wall);
+
+            this.distanceUI.updateDistance(distance);
         };
 
         ticker.add(update);

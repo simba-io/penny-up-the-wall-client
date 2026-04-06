@@ -37,8 +37,6 @@ export class PowerBar extends PIXI.Graphics
         this.value = newValue;
 
         this.cover.scale.y = this.value / this.max;
-
-        console.log('Setting Power Bar Value:', this.value);
     }
 
     public getValue(): number

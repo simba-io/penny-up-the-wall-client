@@ -20,6 +20,7 @@ async function init()
 
     // Create a main container to hold all game objects
     const scene = new Scene();
+    
     app.stage.addChild(scene);
 
     scene.bootstrap();

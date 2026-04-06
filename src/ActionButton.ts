@@ -9,7 +9,7 @@ export class ActionButton extends PIXI.Graphics
 
     private power: number = 50;
 
-    private powerMultiplier: number = 1.5;
+    private powerMultiplier: number = 5;
 
     private animateReduction: number = 0.2;
 
@@ -41,8 +41,6 @@ export class ActionButton extends PIXI.Graphics
 
     onTouchDown = () =>
     {
-        console.log('touch down!');
-
         this.scale.set(this.scale.x - this.animateReduction, this.scale.y - this.animateReduction); // Example of a simple animation effect (scaling down)
         
         this.currentInterval = setInterval(() =>
@@ -60,8 +58,6 @@ export class ActionButton extends PIXI.Graphics
 
     onTouchUp = () =>
     {
-        console.log('touch up!');
-
         this.scale.set(this.scale.x + this.animateReduction, this.scale.y + this.animateReduction); // Example of a simple animation effect (scaling up)
         
         if (this.currentInterval)
