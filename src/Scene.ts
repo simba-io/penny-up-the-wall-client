@@ -1,9 +1,9 @@
 import * as PIXI from 'pixi.js';
-import { GameObject } from './GameObject';
 import { DESIGN_WIDTH, DESIGN_HEIGHT } from './main';
 import { ActionButton } from './ActionButton';
 import { PowerBar } from './PowerBar';
 import { Coin } from './Coin';
+import { Wall } from './Wall';
 
 export enum Color
 {
@@ -53,23 +53,33 @@ export class Scene extends PIXI.Container
         this.setGameObjectPosition(powerBar.name, 0.07, 0.15);
         // -----------------------------------------------------------------
 
-        // ACTION BUTTON
+        // WALL GAME OBJECT
 
-        const button = new ActionButton(this, powerBar, 'action-button');
+        const wall = new Wall(this, 'wall');
 
-        this.gameObjects[button.name] = button;
+        this.gameObjects[wall.name] = wall;
         
-        this.setGameObjectPosition(button.name, 0.1, 0.85);
+        this.setGameObjectPosition(wall.name, 0, 0);
 
         // -----------------------------------------------------------------
 
         // COIN GAME OBJECT
 
-        const coin = new Coin(this, 'coin');
+        const coin = new Coin(this, wall, 'coin');
 
         this.gameObjects[coin.name] = coin;
         
-        this.setGameObjectPosition(coin.name, 0.5, 0.9);
+        this.setGameObjectPosition(coin.name, 0.5, 0.8);
+
+        // -----------------------------------------------------------------
+
+        // ACTION BUTTON
+
+        const button = new ActionButton(this, powerBar, coin, 'action-button');
+
+        this.gameObjects[button.name] = button;
+        
+        this.setGameObjectPosition(button.name, 0.1, 0.85);
 
         // -----------------------------------------------------------------
     }

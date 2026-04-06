@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { Scene } from './Scene';
 import { PowerBar } from './PowerBar';
+import { Coin } from './Coin';
 
 export class ActionButton extends PIXI.Graphics
 {
@@ -8,18 +9,22 @@ export class ActionButton extends PIXI.Graphics
 
     private power: number = 50;
 
+    private powerMultiplier: number = 1.5;
+
     private animateReduction: number = 0.2;
 
     private currentInterval: any = null;
 
     private powerBar: PowerBar;
+    private coin: Coin;
 
-    constructor(parent: Scene, _powerBar: PowerBar, name: string = "")
+    constructor(parent: Scene, _powerBar: PowerBar, coin: Coin, name: string = "")
     {
         super();
         
         this.name = name;
         this.powerBar = _powerBar;
+        this.coin = coin;
 
         this.interactive = true;
         this.eventMode = 'static';
@@ -61,10 +66,13 @@ export class ActionButton extends PIXI.Graphics
         
         if (this.currentInterval)
         {
+            const currentValue = this.powerBar.getValue();
+            const launchPower = Math.max(12, this.powerBar.max - currentValue);
+
+            this.coin.launchCoin(launchPower / this.powerMultiplier);
             this.powerBar.setValue(this.powerBar.max); // Reset power bar value on touch release
 
             clearInterval(this.currentInterval);
-
             this.currentInterval = null;
         }
     }
