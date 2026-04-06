@@ -1,36 +1,32 @@
 import * as PIXI from "pixi.js";
 import { Color, Scene } from "./Scene";
 
-export class DistanceFromWall extends PIXI.Graphics
-{
-    public name: string = "";
+export class DistanceFromWall extends PIXI.Graphics {
+  public name: string = "";
 
-    constructor(parent: Scene, name: string = "")
-    {
-        super();
-        
-        this.name = name;
+  constructor(parent: Scene, name: string = "") {
+    super();
 
-        const textStyle = new PIXI.TextStyle({
-            fontFamily: "Arial",
-            fontSize: 50,
-            fill: Color.WHITE,
-        });
+    this.name = name;
 
-        const text = new PIXI.Text("Dist: ", textStyle);
+    const textStyle = new PIXI.TextStyle({
+      fontFamily: "Arial",
+      fontSize: 50,
+      fill: Color.WHITE,
+    });
 
-        text.anchor.set(0.5, 0.5);
+    const text = new PIXI.Text("Dist: ", textStyle);
 
-        this.addChild(text);
+    text.anchor.set(0.5, 0.5);
 
-        parent.addChild(this);
-    }
+    this.addChild(text);
 
-    public updateDistance(distance: number): void
-    {
-        const text = this.children[0] as PIXI.Text;
+    parent.addChild(this);
+  }
 
-        text.text = `Dist: ${distance.toFixed(5)}`;
-    }
+  public updateDistance(distance: number): void {
+    const text = this.children[0] as PIXI.Text;
 
+    text.text = `Dist: ${distance.toFixed(5)}`;
+  }
 }
