@@ -1,5 +1,5 @@
-import * as PIXI from 'pixi.js';
-import { Color, Scene } from './Scene';
+import * as PIXI from "pixi.js";
+import { Color, Scene } from "./Scene";
 
 export class DistanceFromWall extends PIXI.Graphics
 {
@@ -12,12 +12,12 @@ export class DistanceFromWall extends PIXI.Graphics
         this.name = name;
 
         const textStyle = new PIXI.TextStyle({
-            fontFamily: 'Arial',
+            fontFamily: "Arial",
             fontSize: 50,
             fill: Color.WHITE,
         });
 
-        const text = new PIXI.Text('Dist: ', textStyle);
+        const text = new PIXI.Text("Dist: ", textStyle);
 
         text.anchor.set(0.5, 0.5);
 

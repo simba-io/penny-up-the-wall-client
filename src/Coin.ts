@@ -1,8 +1,8 @@
-import * as PIXI from 'pixi.js';
-import { Assets } from 'pixi.js';
-import type { Scene } from './Scene';
-import type { Wall } from './Wall';
-import { DistanceFromWall } from './DistanceUI';
+import * as PIXI from "pixi.js";
+import { Assets } from "pixi.js";
+import type { Scene } from "./Scene";
+import type { Wall } from "./Wall";
+import { DistanceFromWall } from "./DistanceUI";
 
 export class Coin extends PIXI.Sprite
 {
@@ -34,7 +34,7 @@ export class Coin extends PIXI.Sprite
 
         this.scale.set(0.5, 0.5);
 
-        Assets.load('assets/pngegg.png').then((texture) =>
+        Assets.load("assets/pngegg.png").then((texture) =>
         {
             this.texture = texture as PIXI.Texture;
         });

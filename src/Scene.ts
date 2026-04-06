@@ -1,10 +1,10 @@
-import * as PIXI from 'pixi.js';
-import { DESIGN_WIDTH, DESIGN_HEIGHT } from './main';
-import { ActionButton } from './ActionButton';
-import { PowerBar } from './PowerBar';
-import { Coin } from './Coin';
-import { Wall } from './Wall';
-import { DistanceFromWall } from './DistanceUI';
+import * as PIXI from "pixi.js";
+import { DESIGN_WIDTH, DESIGN_HEIGHT } from "./main";
+import { ActionButton } from "./ActionButton";
+import { PowerBar } from "./PowerBar";
+import { Coin } from "./Coin";
+import { Wall } from "./Wall";
+import { DistanceFromWall } from "./DistanceUI";
 
 export enum Color
 {
@@ -47,7 +47,7 @@ export class Scene extends PIXI.Container
 
         // POWER BAR
 
-        const powerBar = new PowerBar(this, 'power-bar');
+        const powerBar = new PowerBar(this, "power-bar");
 
         this.gameObjects[powerBar.name] = powerBar;
 
@@ -56,7 +56,7 @@ export class Scene extends PIXI.Container
 
         // WALL GAME OBJECT
 
-        const wall = new Wall(this, 'wall');
+        const wall = new Wall(this, "wall");
 
         this.gameObjects[wall.name] = wall;
         
@@ -65,7 +65,7 @@ export class Scene extends PIXI.Container
 
         // DISTANCE UI
 
-        const distanceUI = new DistanceFromWall(this, 'distance-ui');
+        const distanceUI = new DistanceFromWall(this, "distance-ui");
 
         this.gameObjects[distanceUI.name] = distanceUI;
         
@@ -75,7 +75,7 @@ export class Scene extends PIXI.Container
 
         // COIN GAME OBJECT
 
-        const coin = new Coin(this, distanceUI, wall, 'coin');
+        const coin = new Coin(this, distanceUI, wall, "coin");
 
         this.gameObjects[coin.name] = coin;
         
@@ -85,7 +85,7 @@ export class Scene extends PIXI.Container
 
         // ACTION BUTTON
 
-        const button = new ActionButton(this, powerBar, coin, 'action-button');
+        const button = new ActionButton(this, powerBar, coin, "action-button");
 
         this.gameObjects[button.name] = button;
         

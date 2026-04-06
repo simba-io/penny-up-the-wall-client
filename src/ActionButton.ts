@@ -1,7 +1,7 @@
-import * as PIXI from 'pixi.js';
-import { Scene } from './Scene';
-import { PowerBar } from './PowerBar';
-import { Coin } from './Coin';
+import * as PIXI from "pixi.js";
+import { Scene } from "./Scene";
+import { PowerBar } from "./PowerBar";
+import { Coin } from "./Coin";
 
 export class ActionButton extends PIXI.Graphics
 {
@@ -27,7 +27,7 @@ export class ActionButton extends PIXI.Graphics
         this.coin = coin;
 
         this.interactive = true;
-        this.eventMode = 'static';
+        this.eventMode = "static";
 
         this.ontouchstart = this.onTouchDown;
         this.ontouchend = this.onTouchUp;

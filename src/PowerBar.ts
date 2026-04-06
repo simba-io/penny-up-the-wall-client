@@ -1,5 +1,5 @@
-import * as PIXI from 'pixi.js';
-import { Color, Scene } from './Scene';
+import * as PIXI from "pixi.js";
+import { Color, Scene } from "./Scene";
 
 export class PowerBar extends PIXI.Graphics
 {

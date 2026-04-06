@@ -1,6 +1,6 @@
-import * as PIXI from 'pixi.js';
-import { Color, Scene } from './Scene';
-import { DESIGN_WIDTH } from './main';
+import * as PIXI from "pixi.js";
+import { Color, Scene } from "./Scene";
+import { DESIGN_WIDTH } from "./main";
 
 export class Wall extends PIXI.Graphics
 {
