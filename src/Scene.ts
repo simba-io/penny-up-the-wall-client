@@ -4,7 +4,9 @@ import { ActionButton } from "./ActionButton";
 import { PowerBar } from "./PowerBar";
 import { Coin } from "./Coin";
 import { Wall } from "./Wall";
-import { DistanceFromWall } from "./DistanceUI";
+import { DistanceFromWall as DistanceFromWallUI } from "./DistanceUI";
+import { Game } from "./Game";
+import { RoundsUI } from "./RoundsUI";
 
 export enum Color {
   GREEN = 0x00ff00,
@@ -25,12 +27,17 @@ export enum Color {
 export class Scene extends PIXI.Container {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private gameObjects: Record<string, any> = {};
+  private game!: Game;
 
-  constructor() {
-    super();
+  constructor(game: Game)
+  {
+      super();
+
+      this.game = game;
   }
 
-  async bootstrap(): Promise<void> {
+  async bootstrap(): Promise<void>
+  {
     // Placeholder: A centered sprite or graphic to test scaling
     const viewportBorder = new PIXI.Graphics()
       .rect(0, 0, DESIGN_WIDTH, DESIGN_HEIGHT)
@@ -61,11 +68,23 @@ export class Scene extends PIXI.Container {
 
     // DISTANCE UI
 
-    const distanceUI = new DistanceFromWall(this, "distance-ui");
+    const distanceUI = new DistanceFromWallUI(this, "distance-ui");
 
     this.gameObjects[distanceUI.name] = distanceUI;
 
     this.setGameObjectPosition(distanceUI.name, 0.9, 0.85);
+
+    // -----------------------------------------------------------------
+
+    // DISTANCE UI
+
+    const roundsUI = new RoundsUI(this, "rounds-ui");
+
+    roundsUI.updateRounds(this.game.rounds);
+
+    this.gameObjects[roundsUI.name] = roundsUI;
+
+    this.setGameObjectPosition(roundsUI.name, 0.1, 0.15);
 
     // -----------------------------------------------------------------
 
@@ -88,6 +107,23 @@ export class Scene extends PIXI.Container {
     this.setGameObjectPosition(button.name, 0.1, 0.85);
 
     // -----------------------------------------------------------------
+  }
+
+  public resetRound(): void
+  {
+      const rounds = this.game.rounds -= 1;
+
+      if (this.game.rounds > 0)
+      {
+          this.setGameObjectPosition("coin", 0.5, 0.8);
+
+          this.gameObjects["rounds-ui"].updateRounds(rounds);
+      }
+      else
+      {
+          this.parent?.removeChild(this);
+          this.destroy();
+      }
   }
 
   private setGameObjectPosition(

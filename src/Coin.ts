@@ -65,6 +65,8 @@ export class Coin extends PIXI.Sprite {
       this.isLaunched = false;
 
       this.velocityY = 0;
+
+      this.scene.resetRound();
     };
 
     const update = () => {

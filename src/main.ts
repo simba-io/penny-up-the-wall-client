@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
 import { Scene } from "./Scene";
+import { Game } from "./Game";
 
 // Configuration for your "Safe Zone" / Design resolution
 export const DESIGN_WIDTH = 1920;
@@ -18,7 +19,7 @@ async function init() {
   document.getElementById("game-container")!.appendChild(app.canvas);
 
   // Create a main container to hold all game objects
-  const scene = new Scene();
+  const scene = new Scene(new Game(3)); // Pass the game instance to the scene
 
   app.stage.addChild(scene);
 
