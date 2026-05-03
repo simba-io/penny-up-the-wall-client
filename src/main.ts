@@ -12,6 +12,7 @@ async function init() {
     background: "#1099bb",
     resizeTo: window, // Automatically matches the browser window size
     antialias: true,
+    autoDensity: true,
     resolution: window.devicePixelRatio || 1,
   });
 
