@@ -1,48 +1,44 @@
-import * as PIXI from 'pixi.js';
-import { Color, Scene } from './Scene';
+import * as PIXI from "pixi.js";
+import { Color, Scene } from "./Scene";
 
-export class PowerBar extends PIXI.Graphics
-{
-    public name: string = "";
+export class PowerBar extends PIXI.Graphics {
+  public name: string = "";
 
-    public value: number = 0;
-    public min: number = 0;
-    public max: number = 600;
+  public value: number = 0;
+  public min: number = 0;
+  public max: number = 600;
 
-    private cover: PIXI.Graphics;
+  private cover: PIXI.Graphics;
 
-    constructor(parent: Scene, name: string = "")
-    {
-        super();
-        
-        this.name = name;
+  constructor(parent: Scene, name: string = "") {
+    super();
 
-        this.value = this.max;
+    this.name = name;
 
-        this.beginFill(Color.GREEN).drawRect(0, 0, 100, this.max).endFill();
+    this.value = this.max;
 
-        parent.addChild(this);
+    this.beginFill(Color.GREEN).drawRect(0, 0, 100, this.max).endFill();
 
-        const _cover = new PIXI.Graphics();
+    parent.addChild(this);
 
-        _cover.beginFill(Color.GREY).drawRect(0, 0, 100, this.max).endFill();
+    const _cover = new PIXI.Graphics();
 
-        this.addChild(_cover);
+    _cover.beginFill(Color.GREY).drawRect(0, 0, 100, this.max).endFill();
 
-        this.cover = _cover;
-    }
+    this.addChild(_cover);
 
-    public setValue(newValue: number): void
-    {
-        this.value = newValue;
+    this.cover = _cover;
+  }
 
-        this.cover.scale.y = this.value / this.max;
+  public setValue(newValue: number): void {
+    this.value = newValue;
 
-        console.log('Setting Power Bar Value:', this.value);
-    }
+    this.cover.scale.y = this.value / this.max;
 
-    public getValue(): number
-    {
-        return this.value;
-    }
+    console.log("Setting Power Bar Value:", this.value);
+  }
+
+  public getValue(): number {
+    return this.value;
+  }
 }
